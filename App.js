@@ -4,16 +4,19 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import "react-native-gesture-handler";
 import Index from "./screens/index";
 import About from "./screens/about";
 import Home from "./screens/home";
 import Header from "./components/header";
+import HomeStack from "./routes/homeStack";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default function App() {
   // const Drawer = createDrawerNavigator();
-  const Stack = createNativeStackNavigator();
+
+  const Tab = createBottomTabNavigator();
 
   return (
     // <NavigationContainer>
@@ -24,7 +27,38 @@ export default function App() {
     // </NavigationContainer>
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Tab.Navigator
+          initialRouteName="Home"
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === "Home") {
+                iconName = focused ? "home" : "home-outline";
+              } else if (route.name === "About") {
+                iconName = focused ? "list" : "list-outline";
+              }
+
+              return <Icon name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: "tomato",
+            tabBarInactiveTintColor: "gray",
+            tabBarLabelStyle: { fontSize: 12, paddingBottom: 10 },
+            tabBarStyle: {
+              backgroundColor: "white",
+              height: 60,
+              paddingTop: 10,
+            },
+          })}
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeStack}
+            options={{ tabBarBadge: 3 }}
+          />
+          <Tab.Screen name="About" component={About} />
+        </Tab.Navigator>
+        {/* <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
             component={Home}
@@ -38,7 +72,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name="About" component={About} />
-        </Stack.Navigator>
+        </Stack.Navigator> */}
       </NavigationContainer>
     </SafeAreaProvider>
   );

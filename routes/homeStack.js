@@ -9,12 +9,10 @@ const Stack = createNativeStackNavigator();
 
 function HomeStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="SingleView" component={SingleView} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="SingleView" component={SingleView} />
+    </Stack.Navigator>
   );
 }
 

@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export default function Index() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen component={Home} />
       <Stack.Screen name="SingleView" component={SingleView} />
     </Stack.Navigator>
   );
